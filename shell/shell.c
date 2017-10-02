@@ -187,11 +187,11 @@ int main(int argc, char **argv, char**envp){
       if(subCommandSeparation[1]){
 	int PathIndex = getPathIndex(envp);
 	char ** paths = mytoc(mytoc(envp[PathIndex], '=')[1], ':'); //Tokenize the path entry, first to get rid of the PATH, then to get the actual paths
-	subCommandExecution(subCommandSeparation, paths, envp);
+	executionStatus = subCommandExecution(subCommandSeparation, paths, envp);
       }else if(pipeSeparation[1]){  //If the array grew in size, there is a pipe, switch to pipe execution
 	int PathIndex = getPathIndex(envp);    //Get the index for the path entry in envp
 	char ** paths = mytoc(mytoc(envp[PathIndex], '=')[1], ':');   //Tokenize the path entry, first to get rid of the PATH, then to get the actual paths
-	pipeExecution(pipeSeparation, paths, envp);
+	executionStatus = pipeExecution(pipeSeparation, paths, envp);
       }else{
 	char ** resultingVector =  mytoc(buffer, ' ');    //Pass user input to the method and generate a vector
 	FILE * file;
